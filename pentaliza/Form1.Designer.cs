@@ -28,74 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ScoreX = new System.Windows.Forms.Label();
             this.ScoreO = new System.Windows.Forms.Label();
             this.currentPlayerOnScreen = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.ResetScore = new System.Windows.Forms.Button();
             this.ResetGame = new System.Windows.Forms.Button();
+            this.UserO = new System.Windows.Forms.DomainUpDown();
+            this.UserX = new System.Windows.Forms.DomainUpDown();
+            this.StepByStep = new System.Windows.Forms.CheckBox();
+            this.NextStep = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ScoreX
             // 
-            this.ScoreX.Location = new System.Drawing.Point(150, 13);
+            this.ScoreX.Location = new System.Drawing.Point(109, 97);
             this.ScoreX.Name = "ScoreX";
-            this.ScoreX.Size = new System.Drawing.Size(142, 13);
+            this.ScoreX.Size = new System.Drawing.Size(94, 13);
             this.ScoreX.TabIndex = 0;
             this.ScoreX.Text = "Score X:0";
             // 
             // ScoreO
             // 
-            this.ScoreO.Location = new System.Drawing.Point(150, 0);
+            this.ScoreO.Location = new System.Drawing.Point(3, 97);
             this.ScoreO.Name = "ScoreO";
-            this.ScoreO.Size = new System.Drawing.Size(142, 13);
+            this.ScoreO.Size = new System.Drawing.Size(94, 13);
             this.ScoreO.TabIndex = 1;
             this.ScoreO.Text = "Score O:0";
             // 
             // currentPlayerOnScreen
             // 
             this.currentPlayerOnScreen.AutoSize = true;
-            this.currentPlayerOnScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.currentPlayerOnScreen.Location = new System.Drawing.Point(2, 0);
+            this.currentPlayerOnScreen.BackColor = System.Drawing.Color.Transparent;
+            this.currentPlayerOnScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.currentPlayerOnScreen.Location = new System.Drawing.Point(188, 49);
             this.currentPlayerOnScreen.Name = "currentPlayerOnScreen";
-            this.currentPlayerOnScreen.Size = new System.Drawing.Size(25, 24);
-            this.currentPlayerOnScreen.TabIndex = 2;
+            this.currentPlayerOnScreen.Size = new System.Drawing.Size(68, 61);
+            this.currentPlayerOnScreen.TabIndex = 4;
             this.currentPlayerOnScreen.Text = "Ο";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(36, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(52, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "O bot";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(93, 0);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(51, 17);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "X bot";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.currentPlayerOnScreen.Click += new System.EventHandler(this.currentPlayerOnScreen_Click);
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 58);
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 113);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(129, 128);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // ResetScore
             // 
-            this.ResetScore.Location = new System.Drawing.Point(122, 29);
+            this.ResetScore.Location = new System.Drawing.Point(181, 3);
             this.ResetScore.Name = "ResetScore";
             this.ResetScore.Size = new System.Drawing.Size(75, 23);
             this.ResetScore.TabIndex = 6;
@@ -105,7 +93,7 @@
             // 
             // ResetGame
             // 
-            this.ResetGame.Location = new System.Drawing.Point(207, 29);
+            this.ResetGame.Location = new System.Drawing.Point(100, 3);
             this.ResetGame.Name = "ResetGame";
             this.ResetGame.Size = new System.Drawing.Size(75, 23);
             this.ResetGame.TabIndex = 7;
@@ -113,22 +101,109 @@
             this.ResetGame.UseVisualStyleBackColor = true;
             this.ResetGame.Click += new System.EventHandler(this.ResetGame_Click);
             // 
+            // UserO
+            // 
+            this.UserO.Location = new System.Drawing.Point(6, 29);
+            this.UserO.Name = "UserO";
+            this.UserO.ReadOnly = true;
+            this.UserO.Size = new System.Drawing.Size(73, 20);
+            this.UserO.TabIndex = 8;
+            this.UserO.Text = "Select O";
+            this.UserO.SelectedItemChanged += new System.EventHandler(this.UserO_SelectedItemChanged);
+            // 
+            // UserX
+            // 
+            this.UserX.Location = new System.Drawing.Point(181, 29);
+            this.UserX.Name = "UserX";
+            this.UserX.ReadOnly = true;
+            this.UserX.Size = new System.Drawing.Size(73, 20);
+            this.UserX.TabIndex = 9;
+            this.UserX.Text = "Select X";
+            this.UserX.SelectedItemChanged += new System.EventHandler(this.UserX_SelectedItemChanged);
+            // 
+            // StepByStep
+            // 
+            this.StepByStep.AutoSize = true;
+            this.StepByStep.Location = new System.Drawing.Point(85, 32);
+            this.StepByStep.Name = "StepByStep";
+            this.StepByStep.Size = new System.Drawing.Size(90, 17);
+            this.StepByStep.TabIndex = 13;
+            this.StepByStep.Text = "Auto Play Bot";
+            this.StepByStep.UseVisualStyleBackColor = true;
+            this.StepByStep.CheckedChanged += new System.EventHandler(this.StepByStep_CheckedChanged);
+            // 
+            // NextStep
+            // 
+            this.NextStep.Location = new System.Drawing.Point(101, 55);
+            this.NextStep.Name = "NextStep";
+            this.NextStep.Size = new System.Drawing.Size(63, 23);
+            this.NextStep.TabIndex = 14;
+            this.NextStep.Text = "Play bot";
+            this.NextStep.UseVisualStyleBackColor = true;
+            this.NextStep.Visible = false;
+            this.NextStep.Click += new System.EventHandler(this.NextStep_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(57, 3);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown1.TabIndex = 15;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Grid Size:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 285);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(261, 285);
+            this.Controls.Add(this.currentPlayerOnScreen);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.StepByStep);
+            this.Controls.Add(this.NextStep);
+            this.Controls.Add(this.UserX);
+            this.Controls.Add(this.UserO);
             this.Controls.Add(this.ResetGame);
             this.Controls.Add(this.ResetScore);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.currentPlayerOnScreen);
             this.Controls.Add(this.ScoreO);
             this.Controls.Add(this.ScoreX);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Nliza";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,11 +214,15 @@
         private System.Windows.Forms.Label ScoreX;
         private System.Windows.Forms.Label ScoreO;
         private System.Windows.Forms.Label currentPlayerOnScreen;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button ResetScore;
         private System.Windows.Forms.Button ResetGame;
+        private System.Windows.Forms.DomainUpDown UserO;
+        private System.Windows.Forms.DomainUpDown UserX;
+        private System.Windows.Forms.CheckBox StepByStep;
+        private System.Windows.Forms.Button NextStep;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
