@@ -111,13 +111,19 @@ namespace Bots
                     }
                 }
             }
+            int t = 0;
             for (int i = 0; i < boardInt.GetLength(0); i++)
             {
                 if (boardInt[Math.Abs(y-i), y] == nextTurn(Player)&& boardInt[x, Math.Abs(x - i)] == nextTurn(Player))
                 {
-                    Win[0] = 0;
-                    Win[1] = 0;
+                    t++;
+                    
                 }
+            }
+            if (t==1)
+            {
+                Win[0] = 0;
+                Win[1] = 0;
             }
                 return (Win[0] + Win[1] + Win[2] + Win[3] -100000* checkDefeat(move)) ;
         }
