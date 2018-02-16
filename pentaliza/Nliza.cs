@@ -15,20 +15,12 @@ namespace nliza
         public int empty = 3;
         public int BoardSize = 3;
         public int movesAvelable =9;
-        public Size board2DSize;
         public int[,] boardInt;
         public int[] score = { 0, 0 };
         public int startingPlayer;
-        //int maxDifficulty;
-        public void changePlayerType(int player,int type)
-        {
-            if(currentPlayer== players[player])
-            {
-                currentPlayer= PFactory.Get(type, players[player].id, players[player].enemyId, players[player].emptyId);
-            }
-            players[player] = PFactory.Get(type, players[player].id, players[player].enemyId, players[player].emptyId);
-        }
-        public struct OutCome
+        public delegate void OutPut(OutCome outCome);
+        OutPut output;//it will hold the function that will handle the outCome
+        public struct OutCome//to trasner the outCome to the OutPut function
         {
             public Player player;
             public Point pointplayed;
@@ -51,10 +43,16 @@ namespace nliza
                 this.ended = ended;
             }
         }
+        public void changePlayerType(int player,int type)//0 for O, 1 for X .type 0-7(or more) from player factory
+        {
+            if(currentPlayer== players[player])
+            {
+                currentPlayer= PFactory.Get(type, players[player].id, players[player].enemyId, players[player].emptyId);
+            }
+            players[player] = PFactory.Get(type, players[player].id, players[player].enemyId, players[player].emptyId);
+        }
         
-        public delegate void OutPut(OutCome outCome);
-        OutPut output;
-        public Nliza(int BoardSize, int playerID1, int player1Type, int playerID2, int player2Type, int empty, int startingPlayer, OutPut output)
+        public Nliza(int BoardSize, int playerID1, int player1Type, int playerID2, int player2Type, int empty, int startingPlayer, OutPut output)//playerID1!=playerID2!=empty,startingPlayer will be one of playerID1,playerID2
         {
             this.BoardSize = BoardSize;
             this.empty = empty;
@@ -73,17 +71,16 @@ namespace nliza
             checkData();
             initializetion();
         }
-        private void checkData()
+        private void checkData()//checking if initial values are correct
         {
-            if (players[0].id == players[1].id|| players[0].id==empty|| players[1].id==empty)
+            if (players[0].id == players[1].id|| players[0].id==empty|| players[1].id==empty||!(players[0].id ==startingPlayer || players[1].id== startingPlayer))
             {
                 throw new System.ArgumentException("data error", "original");
             }
         }
-        public void initializetion()
+        public void initializetion()//initializing the board and the avelable moves
         {
-            board2DSize = new Size(BoardSize, BoardSize);
-            boardInt = new int[board2DSize.Width, board2DSize.Height];
+            boardInt = new int[BoardSize, BoardSize];
             movesAvelable = boardInt.Length;
             for (int i = 0; i < boardInt.GetLength(0); i++)
             {
@@ -94,7 +91,7 @@ namespace nliza
             }
             
         }
-        public void nextTurn()
+        public void nextTurn()//changes the currentPlayer to the next one
         {
             if (currentPlayer == players[0])
             {
@@ -105,25 +102,14 @@ namespace nliza
                 currentPlayer = players[0];
             }
         }
-        public int Emeny(int player)
-        {
-            if (player == players[0].id)
-            {
-                return players[1].id;
-            }
-            else
-            {
-                return players[0].id;
-            }
-        }
-        public void play()
+        public void play()//playing move (only for bot)
         {
             if (currentPlayer.GetType() != typeof(player.Human))
             {
                 playPossitionIfEmpty(((Bot)currentPlayer).CalculateMove(boardInt));
             }
         }
-        public void play(Point pointPlayed)
+        public void play(Point pointPlayed)//playing move for currentPlayer (human or bot(bot will return its own move))
         {
             if (currentPlayer.GetType()==typeof(Human))
             {
@@ -135,7 +121,7 @@ namespace nliza
             }
             
         }
-        private void playPossitionIfEmpty(Point pointPlayed)
+        private void playPossitionIfEmpty(Point pointPlayed)//checking if move is playable and returns the outcome
         {
             bool sucessfull=true;
             OutCome outCome = new OutCome();
@@ -164,7 +150,7 @@ namespace nliza
             outCome.succesfull = sucessfull;
             output(outCome);
         }
-        public void Restart()
+        public void Restart()//restart the game to the original state
         {
             if (startingPlayer == players[1].id)
             {
@@ -176,11 +162,11 @@ namespace nliza
             }
             initializetion();
         }
-        public bool checkdraw()
+        public bool checkdraw()//returns if the game is draw
         {
             return movesAvelable == 0;
         }
-        private bool checkWin(int x, int y)
+        private bool checkWin(int x, int y)//returns if the move won the game
         {
             bool[] Win = { true, true, true, true };
             for (int i = 0; i < boardInt.GetLength(0); i++)

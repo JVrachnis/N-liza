@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 namespace Coloredsymbol
 {
-    class ColoredSymbol
+    class ColoredSymbol//holding a char and the color of that char to be displed with (this sould be an struct)
     {
         Char symbol;
         public string SymbolS { get { return "" + symbol; } }
