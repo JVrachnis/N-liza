@@ -222,6 +222,7 @@ namespace triliza
             }
         }
         private void NextStep_Click(object sender, EventArgs e)
+
         {
             if (!autoMoveBots)
             {
@@ -238,6 +239,11 @@ namespace triliza
         {
             size = (int)numericUpDown1.Value;
             InitializeBoardArray();
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
