@@ -31,8 +31,7 @@ namespace triliza
                 ButtonBoard[outCome.pointplayed.X, outCome.pointplayed.Y].Text = symbols[parseID(outCome.player.id)].SymbolS;
                 ButtonBoard[outCome.pointplayed.X, outCome.pointplayed.Y].ForeColor = symbols[parseID(outCome.player.id)].Color;
                 N3liza.nextTurn();
-                currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
-                currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
+                changeCurrentPlayerOnScreen(parseID(N3liza.currentPlayer.id));
                 if (outCome.victory)
                 {
                     victory(parseID(outCome.player.id));
@@ -58,8 +57,7 @@ namespace triliza
             InitializeBoardArray();
             NextStep.Hide();
             AutoPlayBot.Checked = true;
-            currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
-            currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
+            changeCurrentPlayerOnScreen(parseID(N3liza.currentPlayer.id));
             if (N3liza.currentPlayer.GetType() != typeof(player.Human) && autoMoveBots)
             {
                 N3liza.play();
@@ -123,22 +121,22 @@ namespace triliza
         }
         private void ReInitializeBoardArray()//restart the button array ,the N3liza , the displaed player, and plays the N3liza if the player is bot
         {
-            for (int i = 0; i < ButtonBoard.GetLength(0); i++)
-            {
-                for (int j = 0; j < ButtonBoard.GetLength(1); j++)
+            if (ButtonBoard!=null) {
+                for (int i = 0; i < ButtonBoard.GetLength(0); i++)
                 {
-                    ButtonBoard[i, j].Name = "/" + i + "/" + j;
-                    ButtonBoard[i, j].Text = "";
+                    for (int j = 0; j < ButtonBoard.GetLength(1); j++)
+                    {
+                        ButtonBoard[i, j].Name = "/" + i + "/" + j;
+                        ButtonBoard[i, j].Text = "";
+                    }
+                }
+                N3liza.initializetion();
+                changeCurrentPlayerOnScreen(parseID(N3liza.currentPlayer.id));
+                if (N3liza.currentPlayer.GetType() != typeof(player.Human) && autoMoveBots)
+                {
+                    N3liza.play();
                 }
             }
-            N3liza.initializetion();
-            currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
-            currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
-            if (N3liza.currentPlayer.GetType() != typeof(player.Human) && autoMoveBots)
-            {
-                N3liza.play();
-            }
-
         }
         private void possitionClicked(object sender, EventArgs e)//a fuction that hadles the clicked button array
         {
@@ -184,6 +182,10 @@ namespace triliza
         }
         private void ResetGame_Click(object sender, EventArgs e)//it restarts the game
         {
+            resetGame();
+        }
+        private void resetGame()
+        {
             N3liza.Restart();
             ReInitializeBoardArray();
             score[0] = 0;
@@ -198,6 +200,7 @@ namespace triliza
             if (i>=0) {
                 N3liza.changePlayerType(0, i);
             }
+            resetGame();
         }
         private void UserX_SelectedItemChanged(object sender, EventArgs e)//it handles the changes of player X (changes the player type)
         {
@@ -208,6 +211,7 @@ namespace triliza
             {
                 N3liza.changePlayerType(1, i);
             }
+            resetGame();
         }
         private void AutoPlayBot_CheckedChanged(object sender, EventArgs e)//it handles the changes of autoplay for the bot (if it is posible playes playes the bot)
         {
@@ -235,8 +239,17 @@ namespace triliza
         private void currentPlayerOnScreen_Click(object sender, EventArgs e)
         {
             N3liza.nextTurn();
-            currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
-            currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
+            
+            changeCurrentPlayerOnScreen(parseID(N3liza.currentPlayer.id));
+            if (autoMoveBots)
+            {
+                N3liza.play();
+            }
+        }
+        private void changeCurrentPlayerOnScreen(int index)
+        {
+            currentPlayerOnScreen.Text = symbols[index].SymbolS;
+            currentPlayerOnScreen.ForeColor = symbols[index].Color;
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)//it handles the changes of numericUpDown1 (changes the board size and restarts the game)
         {
