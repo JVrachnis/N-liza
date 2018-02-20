@@ -37,7 +37,7 @@
             this.ResetGame = new System.Windows.Forms.Button();
             this.UserO = new System.Windows.Forms.DomainUpDown();
             this.UserX = new System.Windows.Forms.DomainUpDown();
-            this.StepByStep = new System.Windows.Forms.CheckBox();
+            this.AutoPlayBot = new System.Windows.Forms.CheckBox();
             this.NextStep = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -121,16 +121,16 @@
             this.UserX.Text = "Select X";
             this.UserX.SelectedItemChanged += new System.EventHandler(this.UserX_SelectedItemChanged);
             // 
-            // StepByStep
+            // AutoPlayBot
             // 
-            this.StepByStep.AutoSize = true;
-            this.StepByStep.Location = new System.Drawing.Point(85, 32);
-            this.StepByStep.Name = "StepByStep";
-            this.StepByStep.Size = new System.Drawing.Size(90, 17);
-            this.StepByStep.TabIndex = 13;
-            this.StepByStep.Text = "Auto Play Bot";
-            this.StepByStep.UseVisualStyleBackColor = true;
-            this.StepByStep.CheckedChanged += new System.EventHandler(this.StepByStep_CheckedChanged);
+            this.AutoPlayBot.AutoSize = true;
+            this.AutoPlayBot.Location = new System.Drawing.Point(85, 32);
+            this.AutoPlayBot.Name = "AutoPlayBot";
+            this.AutoPlayBot.Size = new System.Drawing.Size(90, 17);
+            this.AutoPlayBot.TabIndex = 13;
+            this.AutoPlayBot.Text = "Auto Play Bot";
+            this.AutoPlayBot.UseVisualStyleBackColor = true;
+            this.AutoPlayBot.CheckedChanged += new System.EventHandler(this.AutoPlayBot_CheckedChanged);
             // 
             // NextStep
             // 
@@ -186,7 +186,7 @@
             this.Controls.Add(this.currentPlayerOnScreen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.StepByStep);
+            this.Controls.Add(this.AutoPlayBot);
             this.Controls.Add(this.NextStep);
             this.Controls.Add(this.UserX);
             this.Controls.Add(this.UserO);
@@ -217,7 +217,7 @@
         private System.Windows.Forms.Button ResetGame;
         private System.Windows.Forms.DomainUpDown UserO;
         private System.Windows.Forms.DomainUpDown UserX;
-        private System.Windows.Forms.CheckBox StepByStep;
+        private System.Windows.Forms.CheckBox AutoPlayBot;
         private System.Windows.Forms.Button NextStep;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;

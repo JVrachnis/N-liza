@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 namespace Bots
 {
-    public class Move
+    public class Move//it contains informetion of a move
     {
         public List<Point> pointEmptyList;
         public Point location;

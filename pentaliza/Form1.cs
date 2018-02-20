@@ -24,7 +24,7 @@ namespace triliza
         static Button[,] ButtonBoard;
         Nliza N3liza;
         bool autoMoveBots = true;
-        void outPut(Nliza.OutCome outCome)
+        void outPut(Nliza.OutCome outCome)//funcion to use as output halder of N3liza
         {
             if (outCome.succesfull)
             {
@@ -54,27 +54,10 @@ namespace triliza
         {
             InitializeComponent();
             N3liza = new Nliza(size, 1, 7, -1, 7, 0, 1, outPut);
-            UserO.Items.Add("Easyest");
-            UserO.Items.Add("Easyer");
-            UserO.Items.Add("Easy");
-            UserO.Items.Add("Normal");
-            UserO.Items.Add("Hard");
-            UserO.Items.Add("defensive");
-            UserO.Items.Add("offensive");
-            UserO.Items.Add("Human");
-            UserO.SelectedIndex = 7;
-            UserX.Items.Add("Easyest");
-            UserX.Items.Add("Easyer");
-            UserX.Items.Add("Easy");
-            UserX.Items.Add("Normal");
-            UserX.Items.Add("Hard");
-            UserX.Items.Add("defensive");
-            UserX.Items.Add("offensive");
-            UserX.Items.Add("Human");
-            UserX.SelectedIndex = 7;
+            initializeUserSelection();
             InitializeBoardArray();
             NextStep.Hide();
-            StepByStep.Checked = true;
+            AutoPlayBot.Checked = true;
             currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
             currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
             if (N3liza.currentPlayer.GetType() != typeof(player.Human) && autoMoveBots)
@@ -82,7 +65,28 @@ namespace triliza
                 N3liza.play();
             }
         }
-        private int parseID(int id)
+        private void initializeUserSelection()//initialize the UserSelection
+        {
+            UserO.Items.Add("Easyest");
+            UserO.Items.Add("Easyer");
+            UserO.Items.Add("Easy");
+            UserO.Items.Add("Normal");
+            UserO.Items.Add("Hard");
+            UserO.Items.Add("Harder");
+            UserO.Items.Add("Hardest");
+            UserO.Items.Add("Human");
+            UserO.SelectedIndex = 7;
+            UserX.Items.Add("Easyest");
+            UserX.Items.Add("Easyer");
+            UserX.Items.Add("Easy");
+            UserX.Items.Add("Normal");
+            UserX.Items.Add("Hard");
+            UserX.Items.Add("Harder");
+            UserX.Items.Add("Hardest");
+            UserX.Items.Add("Human");
+            UserX.SelectedIndex = 7;
+        }
+        private int parseID(int id)//parsing the id of a player to mean there position in a list
         {
             if (N3liza.players[1].id==id)
             {
@@ -90,7 +94,7 @@ namespace triliza
             }
             return 0;
         }
-        private void InitializeBoardArray()
+        private void InitializeBoardArray()//initialize the array of buttons
         {
             ButtonBoard = new Button[size, size];
             flowLayoutPanel1.Controls.Clear();
@@ -117,7 +121,7 @@ namespace triliza
             }
             
         }
-        private void ReInitializeBoardArray()
+        private void ReInitializeBoardArray()//restart the button array ,the N3liza , the displaed player, and plays the N3liza if the player is bot
         {
             for (int i = 0; i < ButtonBoard.GetLength(0); i++)
             {
@@ -136,7 +140,7 @@ namespace triliza
             }
 
         }
-        private void possitionClicked(object sender, EventArgs e)
+        private void possitionClicked(object sender, EventArgs e)//a fuction that hadles the clicked button array
         {
             Button possition = (Button)sender;
             string[] test = possition.Name.Split('/');
@@ -146,39 +150,39 @@ namespace triliza
                 N3liza.play(new Point(x, y));
             }
         }
-        private void draw()
+        private void draw()//a fuction that hadles the draw outcome
         {
             DialogResult dialogResult = MessageBox.Show("continue?", "Draw", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.No)
             {
-                StepByStep.Checked = false;
+                AutoPlayBot.Checked = false;
             }
             ReInitializeBoardArray();
         }
-        private void victory(int currentPlayer)
+        private void victory(int currentPlayer)//a fuction that hadles the victory outcome
         {
             DialogResult dialogResult = MessageBox.Show("continue?", "Winner: " + symbols[currentPlayer].SymbolS, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.No)
             {
                 autoMoveBots = false;
-                StepByStep.Checked = false;
+                AutoPlayBot.Checked = false;
             }
             score[currentPlayer]++;
             updateScore();
             ReInitializeBoardArray();
         }
-        private void updateScore()
+        private void updateScore()//updates the displaed score
         {
             ScoreX.Text = "Score X:" + score[1];
             ScoreO.Text = "Score O:" + score[0];
         }
-        private void ResetScore_Click(object sender, EventArgs e)
+        private void ResetScore_Click(object sender, EventArgs e)//it resets the score
         {
             score[0] = 0;
             score[1] = 0;
             updateScore();
         }
-        private void ResetGame_Click(object sender, EventArgs e)
+        private void ResetGame_Click(object sender, EventArgs e)//it restarts the game
         {
             N3liza.Restart();
             ReInitializeBoardArray();
@@ -186,29 +190,29 @@ namespace triliza
             score[1] = 0;
             updateScore();
         }
-        private void UserO_SelectedItemChanged(object sender, EventArgs e)
+        private void UserO_SelectedItemChanged(object sender, EventArgs e)//it handles the changes of player O
         {
             autoMoveBots = false;
-            StepByStep.Checked = false;
+            AutoPlayBot.Checked = false;
             int i = UserO.SelectedIndex;
             if (i>=0) {
                 N3liza.changePlayerType(0, i);
             }
         }
-        private void UserX_SelectedItemChanged(object sender, EventArgs e)
+        private void UserX_SelectedItemChanged(object sender, EventArgs e)//it handles the changes of player X (changes the player type)
         {
             autoMoveBots = false;
-            StepByStep.Checked = false;
+            AutoPlayBot.Checked = false;
             int i = UserX.SelectedIndex;
             if (i >= 0)
             {
                 N3liza.changePlayerType(1, i);
             }
         }
-        private void StepByStep_CheckedChanged(object sender, EventArgs e)
+        private void AutoPlayBot_CheckedChanged(object sender, EventArgs e)//it handles the changes of autoplay for the bot (if it is posible playes playes the bot)
         {
-            autoMoveBots = StepByStep.Checked;
-            if (StepByStep.Checked)
+            autoMoveBots = AutoPlayBot.Checked;
+            if (AutoPlayBot.Checked)
             {
                 NextStep.Hide();
             }
@@ -221,8 +225,7 @@ namespace triliza
                 N3liza.play();
             }
         }
-        private void NextStep_Click(object sender, EventArgs e)
-
+        private void NextStep_Click(object sender, EventArgs e)//it playes the bot it AutoPlayBot isnt on
         {
             if (!autoMoveBots)
             {
@@ -235,7 +238,7 @@ namespace triliza
             currentPlayerOnScreen.Text = symbols[parseID(N3liza.currentPlayer.id)].SymbolS;
             currentPlayerOnScreen.ForeColor = symbols[parseID(N3liza.currentPlayer.id)].Color;
         }
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)//it handles the changes of numericUpDown1 (changes the board size and restarts the game)
         {
             size = (int)numericUpDown1.Value;
             InitializeBoardArray();

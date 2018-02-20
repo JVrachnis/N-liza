@@ -10,7 +10,7 @@ namespace Bots
     public abstract class Bot: Player
     {
         static protected int currentPlayer;
-        static protected Move BestMove(List<Move> moves)
+        static protected Move BestMove(List<Move> moves)//will return the best move from the list based on there score
         {
             Random rnd = new Random();
             Move bestmove = new Move();
@@ -42,7 +42,7 @@ namespace Bots
 
             return bestmove;
         }
-        protected int nextTurn(int Player)
+        protected int nextTurn(int Player)//it will return the enemy id of the given player id
         {
             if (Player == id)
             {
@@ -54,7 +54,7 @@ namespace Bots
             }
             return Player;
         }
-        static protected bool checkWin(Move move)
+        static protected bool checkWin(Move move)//it will return if the move won the game
         {
             int[,] boardInt = move.Board;
             int x = move.location.X, y = move.location.Y;
@@ -81,7 +81,7 @@ namespace Bots
             }
             return Win.Contains(true);
         }
-        abstract public Point CalculateMove(int[,] Board);
+        abstract public Point CalculateMove(int[,] Board);//abstract function will return a move based on the board
 
     }
 }

@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+
 namespace Bots
 {
-    public class SmartBot : Bot
+    class SmartLoser:Bot//same us smartBot but returns the worst move
     {
-        public SmartBot(int ID ,int EnemyId,int EmptyId)
+        public SmartLoser(int ID, int EnemyId, int EmptyId)
         {
             id = ID;
             enemyId = EnemyId;
             emptyId = EmptyId;
         }
-        override public Point CalculateMove(int[,] Board)//it will return the best using CloseToWinScore to find the Score
+        override public Point CalculateMove(int[,] Board)
         {
             int Player = id;
             Move move;
@@ -38,9 +39,9 @@ namespace Bots
             }
             return BestMove(moves).location;
         }
-        public double CloseToWinScore(Move move)//it will return the score of the move (this algorithm is mine and it is optimized to never lose)
+        public double CloseToWinScore(Move move)
         {
-            int win=100, empty = 3, enemyOccupied=4;
+            int win = 100, empty = 3, enemyOccupied = 4;
             int Player = move.Player;
             int deapth = move.deapth;
             int[,] boardInt = move.Board;
@@ -57,7 +58,7 @@ namespace Bots
                     }
                     else if (boardInt[i, y] == nextTurn(Player))
                     {
-                        Win[0] += enemyOccupied*2;
+                        Win[0] += enemyOccupied * 2;
                     }
                     else
                     {
@@ -72,7 +73,7 @@ namespace Bots
                     }
                     else if (boardInt[x, i] == nextTurn(Player))
                     {
-                        Win[1] += enemyOccupied*2;
+                        Win[1] += enemyOccupied * 2;
                     }
                     else
                     {
@@ -81,7 +82,7 @@ namespace Bots
                 }
                 if (i != y && x == y)
                 {
-                    if ( boardInt[i, i] == Player)
+                    if (boardInt[i, i] == Player)
                     {
                         Win[2] += win;
                     }
@@ -91,7 +92,7 @@ namespace Bots
                     }
                     else
                     {
-                        Win[2] += empty*2;
+                        Win[2] += empty * 2;
                     }
                 }
                 if (i != y && boardInt.GetLength(0) - 1 - x == y)
@@ -107,27 +108,27 @@ namespace Bots
                     }
                     else
                     {
-                        Win[3] += empty*2;
+                        Win[3] += empty * 2;
                     }
                 }
             }
             int t = 0;
             for (int i = 0; i < boardInt.GetLength(0); i++)
             {
-                if (boardInt[Math.Abs(y-i), y] == nextTurn(Player)&& boardInt[x, Math.Abs(x - i)] == nextTurn(Player))
+                if (boardInt[Math.Abs(y - i), y] == nextTurn(Player) && boardInt[x, Math.Abs(x - i)] == nextTurn(Player))
                 {
                     t++;
-                    
+
                 }
             }
-            if (t==1)
+            if (t == 1)
             {
                 Win[0] = 0;
                 Win[1] = 0;
             }
-                return (Win[0] + Win[1] + Win[2] + Win[3] -100000* checkDefeat(move)) ;
+            return -(Win[0] + Win[1] + Win[2] + Win[3] - 100000 * checkDefeat(move));
         }
-        private int checkDefeat(Move move)//checking if it will get defeated
+        private int checkDefeat(Move move)
         {
             int Player = move.Player;
             int[,] boardInt = move.Board;
@@ -183,22 +184,22 @@ namespace Bots
                 }
             }
 
-            int score= 0;
-            if (defeatD[0] == boardInt.GetLength(0)-1)
+            int score = 0;
+            if (defeatD[0] == boardInt.GetLength(0) - 1)
             {
                 score += defeatD[0];
             }
-            if (defeatD[1] == boardInt.GetLength(0)-1)
+            if (defeatD[1] == boardInt.GetLength(0) - 1)
             {
                 score += defeatD[1];
             }
-            for (int i=0; i< boardInt.GetLength(0);i++)
+            for (int i = 0; i < boardInt.GetLength(0); i++)
             {
-                if (defeatLR[i] == boardInt.GetLength(0)-1)
+                if (defeatLR[i] == boardInt.GetLength(0) - 1)
                 {
                     score += defeatLR[i];
                 }
-                if (defeatUD[i] == boardInt.GetLength(0)-1)
+                if (defeatUD[i] == boardInt.GetLength(0) - 1)
                 {
                     score += defeatUD[i];
                 }
