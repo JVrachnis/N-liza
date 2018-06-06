@@ -22,11 +22,11 @@ namespace player
                 case 3:
                     return new MinMaxBot(id, enemyId, emptyId,1);
                 case 4:
-                    return new MinMaxBot(id, enemyId, emptyId,2);
+                    return new MiniMaxWithSmart(id, enemyId, emptyId, 3);
                 case 5:
                     return new SmartBot(id, enemyId, emptyId);
                 case 6:
-                    return new MiniMaxWithSmart(id, enemyId, emptyId);
+                    return new MinMaxBot(id, enemyId, emptyId, 3);
                 default:
                     return new Human(id, enemyId, emptyId);
                     

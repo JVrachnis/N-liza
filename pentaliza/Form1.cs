@@ -65,7 +65,7 @@ namespace triliza
         }
         private void initializeUserSelection()//initialize the UserSelection
         {
-            UserO.Items.Add("Easyest");
+            UserO.Items.Add("Easiest");
             UserO.Items.Add("Easyer");
             UserO.Items.Add("Easy");
             UserO.Items.Add("Normal");
@@ -74,7 +74,7 @@ namespace triliza
             UserO.Items.Add("Hardest");
             UserO.Items.Add("Human");
             UserO.SelectedIndex = 7;
-            UserX.Items.Add("Easyest");
+            UserX.Items.Add("Easiest");
             UserX.Items.Add("Easyer");
             UserX.Items.Add("Easy");
             UserX.Items.Add("Normal");
